@@ -48,7 +48,7 @@ public class TripsController {
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable("id") final Long id) {
-        tripService.delete(id);
+        tripService.deleteById(id);
     }
 
     @PutMapping

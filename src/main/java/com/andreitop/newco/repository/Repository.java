@@ -5,8 +5,8 @@ import com.andreitop.newco.dto.DTO;
 import java.util.ArrayList;
 import java.util.List;
 
-
-abstract class Repository<D extends DTO> {
+@org.springframework.stereotype.Repository
+public abstract class Repository<D extends DTO> {
 
     private List<D> eList = new ArrayList<>();
 

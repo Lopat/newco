@@ -1,38 +1,20 @@
 package com.andreitop.newco.service;
 
 import com.andreitop.newco.dto.TripDto;
+import com.andreitop.newco.repository.Repository;
 import com.andreitop.newco.repository.TripRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class TripService {
-
-    private final TripRepository tripRepository;
+public class TripService extends com.andreitop.newco.service.Service<TripDto> {
 
     @Autowired
-    public TripService(TripRepository tripRepository) {
-        this.tripRepository = tripRepository;
+    public TripService(@Qualifier("tripRepository") Repository<TripDto> repo) {
+        super(repo);
     }
 
-    public List <TripDto> findAll() {
-        return tripRepository.findAll();
-    }
-
-    public TripDto findById(Long id) {
-        return tripRepository.findById(id);
-    }
-
-    public void save(TripDto trip) {
-        tripRepository.save(trip);
-    }
-
-    public void delete(Long id) {tripRepository.deleteById(id);
-    }
-
-    public void update(TripDto newTrip) {
-        tripRepository.update(newTrip);
-    }
 }
