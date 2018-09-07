@@ -4,6 +4,7 @@ import com.andreitop.newco.dto.TripDto;
 import com.andreitop.newco.repository.TripRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 
 @Service
@@ -16,7 +17,7 @@ public class TripService {
         this.tripRepository = tripRepository;
     }
 
-    public List<TripDto> findAll() {
+    public List <TripDto> findAll() {
         return tripRepository.findAll();
     }
 
@@ -28,8 +29,7 @@ public class TripService {
         tripRepository.save(trip);
     }
 
-    public void delete(Long id) {
-        tripRepository.delete(id);
+    public void delete(Long id) {tripRepository.deleteById(id);
     }
 
     public void update(TripDto newTrip) {
