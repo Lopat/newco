@@ -17,4 +17,5 @@ public class TripService extends com.andreitop.newco.service.Service<TripDto> {
         super(repo);
     }
 
+    TripService() {}
 }

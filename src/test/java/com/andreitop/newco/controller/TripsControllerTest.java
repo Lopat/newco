@@ -3,6 +3,7 @@ package com.andreitop.newco.controller;
 import com.andreitop.newco.common.ApiConstant;
 import com.andreitop.newco.dto.TripDto;
 import com.andreitop.newco.service.TripService;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,16 +11,17 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+
 import java.util.Collections;
 import java.util.List;
+
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.BDDMockito.given;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(TripsController.class)
@@ -35,12 +37,26 @@ public class TripsControllerTest {
     @MockBean
     private TripService tripService;
 
+    @Before
+    public void init() throws Exception {
+        mockMvc.perform(post(API_URL)
+               .contentType(CONTENT_TYPE)
+               .content(TRIP_JSON));
+    }
+
     @Test
     public void whenPostTrip_thenCreateTrip() throws Exception {
         mockMvc.perform(post(API_URL)
-                .contentType(CONTENT_TYPE)
-                .content(TRIP_JSON))
-                .andExpect(status().isCreated());
+               .contentType(CONTENT_TYPE)
+               .content(TRIP_JSON))
+               .andExpect(status().isCreated());
+    }
+
+    @Test
+    public void deleteTrip() throws Exception {
+
+        mockMvc.perform(delete(API_URL + "/{id}", 1))
+               .andExpect(status().isNoContent());
     }
 
     @Test

@@ -16,6 +16,8 @@ public abstract class Service<D extends DTO>  {
         this.repository = repository;
     }
 
+    Service() {}
+
     public void save(D entity) {
         repository.save(entity);
     }
