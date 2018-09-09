@@ -5,6 +5,7 @@ import com.andreitop.newco.dto.TripDto;
 import com.andreitop.newco.service.TripService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -35,8 +36,13 @@ public class TripsController {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public TripDto findById(@PathVariable("id") final Long id) {
-        return tripService.findById(id);
+    public ResponseEntity <TripDto> findById(@PathVariable("id") final Long id) {
+        try {
+            return new ResponseEntity<>(tripService.findById(id), HttpStatus.OK);
+        }
+        catch (Exception e) {
+            return new ResponseEntity <>(HttpStatus.NO_CONTENT);
+        }
     }
 
     @PostMapping
@@ -47,8 +53,15 @@ public class TripsController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable("id") final Long id) {
-        tripService.delete(id);
+    public ResponseEntity <TripDto> delete(@PathVariable("id") final Long id) {
+
+        try {
+            tripService.delete(id);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        catch (Exception e) {
+            return new ResponseEntity <>(HttpStatus.NO_CONTENT);
+        }
     }
 
     @PutMapping
